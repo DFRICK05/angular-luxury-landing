@@ -1,6 +1,6 @@
 # Daily Coding Challenge: LuxeEstate Properties 🏰✨
 
-![Preview](https://images.unsplash.com/photo-1600596542815-2788866afe90?q=80&w=1920&auto=format&fit=crop)
+![Preview]<img width="1894" height="977" alt="Image" src="https://github.com/user-attachments/assets/07b14cac-830a-4f4b-98fe-396a749c0a41" />
 
 Just finished building this luxury real estate landing page to practice modern frontend techniques. The goal was to create a "premium" feel using smooth scroll and cinematic animations without relying on heavy libraries.
 

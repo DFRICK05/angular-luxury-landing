@@ -1,29 +1,30 @@
-# LuxeEstate Properties - Luxury Real Estate Landing Page
+# Daily Coding Challenge: LuxeEstate Properties 🏰✨
 
-![Project Banner](https://images.unsplash.com/photo-1600596542815-2788866afe90?q=80&w=1920&auto=format&fit=crop)
+![Preview](https://images.unsplash.com/photo-1600596542815-2788866afe90?q=80&w=1920&auto=format&fit=crop)
 
-A premium, high-end real estate landing page built with **Angular (Standalone)**, featuring smooth animations with **Anime.js**, **Lenis Scroll**, and a modern glassmorphism UI.
+Just finished building this luxury real estate landing page to practice modern frontend techniques. The goal was to create a "premium" feel using smooth scroll and cinematic animations without relying on heavy libraries.
 
-## Features
-- **Cinematic Animations**: Custom GSAP-like animations using Anime.js.
-- **Smooth Scrolling**: Implemented with Lenis for a buttery smooth experience.
-- **Interactive UI**: 
-  - Dynamic Sticky Backgrounds on scroll.
-  - Video Tour Modals.
-  - Premium Property Cards.
-- **Responsive Design**: Fully optimized for Desktop, Tablet, and Mobile.
-- **Modern Stack**: Angular 18+, Vite, TailwindCSS.
+**Focus for today:** Glassmorphism, Scroll-driven animations, and Angular Standalone Components.
 
-## Tech Stack
-- **Framework**: Angular (Standalone Components)
+## What I Learned / Implemented 🚀
+
+- **Cinematic Animations**: Used `anime.js` to create staggered entrance animations for text and images.
+- **Smooth Scrolling**: Integrated `Lenis` for that buttery smooth scroll effect (essential for luxury vibes).
+- **Interactive UI**:
+  - **Sticky Sections**: Created a dynamic background change effect on scroll.
+  - **Video Modals**: Added custom video players for property tours.
+- **Modern Angular**: Built entirely with Standalone Components (no NgModules!).
+
+## Tech Stack 🛠️
+
+- **Framework**: Angular 18+ (Standalone)
 - **Styling**: TailwindCSS
-- **Animations**: Anime.js
-- **Scrolling**: Lenis
-- **Build Tool**: Vite
+- **Motion**: Anime.js + Lenis Scroll
+- **Build**: Vite
 
-## Run Locally
+## How to Run It 🏃‍♂️
 
-1.  **Clone the repository**
+1.  **Clone the repo**
     ```bash
     git clone https://github.com/DFRICK05/angular-luxury-landing.git
     cd angular-luxury-landing
@@ -34,13 +35,10 @@ A premium, high-end real estate landing page built with **Angular (Standalone)**
     npm install --legacy-peer-deps
     ```
 
-3.  **Run the development server**
+3.  **Start the vibe**
     ```bash
     npm run dev
     ```
 
-4.  **Open in Browser**
-    Navigate to `http://localhost:3000`
-
 ---
-*Created as a Daily Coding Challenge.*
+*Part of my daily coding journey.*

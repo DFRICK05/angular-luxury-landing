@@ -1,0 +1,493 @@
+<!-- Preloader Text Overlay -->
+@if (isLoading()) {
+<div class="fixed inset-0 z-[70] bg-stone-50 flex items-center justify-center transition-opacity duration-1000"
+  [class.pointer-events-auto]="loaderStep() < 2" [class.pointer-events-none]="loaderStep() >= 2"
+  [class.opacity-0]="loaderStep() >= 2">
+  <div class="relative overflow-hidden text-center">
+    <!-- Text 1 -->
+    <h2
+      class="text-4xl md:text-6xl font-serif font-bold text-stone-900 transition-all duration-700 absolute inset-0 flex items-center justify-center"
+      [class.opacity-100]="loaderStep() === 0" [class.opacity-0]="loaderStep() !== 0"
+      [class.translate-y-0]="loaderStep() === 0" [class.-translate-y-10]="loaderStep() > 0">
+      Redefining Luxury
+    </h2>
+
+    <!-- Text 2 -->
+    <h2
+      class="text-4xl md:text-6xl font-serif font-bold text-stone-900 transition-all duration-700 flex items-center justify-center"
+      [class.opacity-0]="loaderStep() < 1" [class.translate-y-10]="loaderStep() < 1"
+      [class.opacity-100]="loaderStep() === 1" [class.translate-y-0]="loaderStep() === 1">
+      Welcome to LuxeEstate
+    </h2>
+  </div>
+</div>
+}
+
+<!-- Loader Video (Moves from Fullscreen to Hero Illustration) -->
+<div class="loader-video-container bg-black shadow-2xl transition-all duration-1000 ease-in-out"
+  [class.pointer-events-auto]="loaderStep() < 2" [class.pointer-events-none]="loaderStep() >= 2"
+  [class.loader-initial]="loaderStep() < 2" [class.loader-minimized]="loaderStep() >= 2">
+  <video class="w-full h-full object-cover opacity-80" autoplay muted loop playsinline>
+    <source src="https://videos.pexels.com/video-files/3205634/3205634-hd_1920_1080_25fps.mp4" type="video/mp4">
+  </video>
+  <!-- Overlay gradient for text readability when fullscreen -->
+  <div class="absolute inset-0 bg-gradient-to-t from-stone-900/60 to-transparent transition-opacity duration-1000"
+    [class.opacity-0]="loaderStep() >= 2"></div>
+</div>
+
+
+<!-- Navbar -->
+<nav
+  [class]="isNavScrolled() ? 'fixed w-full z-50 transition-all duration-500 nav-scrolled' : 'fixed w-full z-50 transition-all duration-500 nav-transparent'"
+  [class.opacity-0]="loaderStep() < 2" class="transition-opacity duration-1000 delay-500">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center justify-between">
+      <!-- Logo -->
+      <button class="flex items-center gap-2 cursor-pointer focus:outline-none" (click)="scrollToSection('hero')">
+        <svg class="w-8 h-8 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+        <span class="text-2xl font-bold tracking-tight text-stone-900 font-serif">LUXE<span
+            class="text-amber-600">ESTATE</span></span>
+      </button>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center space-x-8">
+        <button (click)="scrollToSection('properties')"
+          class="text-stone-600 hover:text-amber-600 font-medium transition-colors">Residences</button>
+        <button (click)="scrollToSection('features')"
+          class="text-stone-600 hover:text-amber-600 font-medium transition-colors">Philosophy</button>
+        <button (click)="scrollToSection('contact')"
+          class="bg-stone-900 text-white hover:bg-amber-600 px-6 py-2.5 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+          Inquire Now
+        </button>
+      </div>
+
+      <!-- Mobile Toggle -->
+      <button (click)="toggleMenu()" class="md:hidden text-stone-800 focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  @if (mobileMenuOpen()) {
+  <div class="md:hidden bg-white/95 backdrop-blur-xl absolute w-full border-b border-stone-200 animate-fade-in">
+    <div class="px-6 py-4 space-y-3">
+      <button (click)="scrollToSection('properties')"
+        class="block w-full text-left text-lg font-medium text-stone-800 py-2">Residences</button>
+      <button (click)="scrollToSection('features')"
+        class="block w-full text-left text-lg font-medium text-stone-800 py-2">Philosophy</button>
+      <button (click)="scrollToSection('contact')"
+        class="block w-full text-left text-lg font-medium text-amber-600 font-bold py-2">Inquire Now</button>
+    </div>
+  </div>
+  }
+</nav>
+
+<!-- Hero Section -->
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-stone-50">
+  <!-- Decorative background shape -->
+  <div class="absolute top-0 right-0 w-2/3 h-full bg-stone-100 skew-x-12 translate-x-32 z-0"></div>
+
+  <div class="container mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 items-center pt-20">
+    <!-- Left: Content -->
+    <div class="text-left relative z-20">
+      <div
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50 text-amber-700 text-sm font-bold tracking-wider uppercase mb-8 border border-amber-100 hero-subtitle opacity-0">
+        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+        Exclusive Portfolio 2024
+      </div>
+
+      <h1 class="text-6xl md:text-8xl font-bold text-stone-900 leading-none mb-8 hero-title opacity-0 font-serif">
+        Beyond <br />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-800">Luxury Living</span>
+      </h1>
+
+      <p class="text-xl text-stone-500 mb-10 max-w-lg leading-relaxed hero-subtitle opacity-0">
+        Discover a curated collection of the world's most extraordinary homes, where architectural mastery meets
+        timeless elegance.
+      </p>
+
+      <div class="flex flex-wrap gap-4 hero-cta opacity-0">
+        <button (click)="scrollToSection('properties')"
+          class="bg-stone-900 text-white px-8 py-4 rounded-full font-bold hover:bg-stone-800 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1">
+          View Collection
+        </button>
+        <button
+          class="px-8 py-4 rounded-full font-bold text-stone-600 hover:text-stone-900 border border-stone-300 hover:border-stone-900 transition-all">
+          Our Philosophy
+        </button>
+      </div>
+    </div>
+
+    <!-- Right: Placeholder for Video Loader landing spot -->
+    <div class="hidden md:flex justify-center items-center relative h-[500px]">
+      <!-- The Video loader element (absolute positioned) will land roughly here based on CSS -->
+    </div>
+  </div>
+
+  <!-- Scroll Down Button -->
+  <div id="scrollBtn"
+    class="absolute bottom-10 left-10 z-20 hidden md:flex items-center gap-4 animate-bounce scrollBtn transition-all duration-300 pointer-events-none">
+    <div class="w-12 h-12 rounded-full border border-stone-300 flex items-center justify-center text-stone-400">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </div>
+    <span class="text-stone-400 text-sm uppercase tracking-widest font-bold">Scroll to Explore</span>
+  </div>
+</section>
+
+<!-- Social Proof / Featured In Strip -->
+<div class="bg-white border-b border-stone-100 py-8 relative z-20">
+  <div class="container mx-auto px-6">
+    <p class="text-center text-xs font-bold uppercase tracking-widest text-stone-400 mb-6">Featured In Global
+      Publications</p>
+    <div
+      class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+      <!-- Mock Logos using Text/SVG placeholders -->
+      <span class="text-2xl font-serif font-bold text-stone-800 tracking-tight">VOGUE <span
+          class="text-xs font-sans font-normal tracking-widest uppercase ml-1">Living</span></span>
+      <span class="text-2xl font-serif font-bold text-stone-800 tracking-tighter">ARCHITECTURAL <span
+          class="font-sans font-light">DIGEST</span></span>
+      <span class="text-2xl font-serif font-bold text-stone-800 italic">Forbes <span
+          class="text-xs font-sans not-italic font-normal uppercase ml-1">Global Properties</span></span>
+      <span class="text-2xl font-serif font-bold text-stone-800 tracking-widest">ELLE <span
+          class="text-xs font-sans font-normal tracking-normal uppercase ml-1">Decor</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- Stats Strip -->
+<div class="bg-stone-900 text-white py-12 border-y border-stone-800 relative z-20">
+  <div class="container mx-auto px-6">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-stone-800">
+      <div class="anim-fade-up opacity-0">
+        <div class="text-4xl md:text-5xl font-serif font-bold text-amber-500">150+</div>
+        <div class="text-stone-400 text-sm tracking-widest uppercase mt-2">Estates Sold</div>
+      </div>
+      <div class="anim-fade-up opacity-0" style="transition-delay: 100ms">
+        <div class="text-4xl md:text-5xl font-serif font-bold text-amber-500">$2B+</div>
+        <div class="text-stone-400 text-sm tracking-widest uppercase mt-2">Value Transacted</div>
+      </div>
+      <div class="anim-fade-up opacity-0" style="transition-delay: 200ms">
+        <div class="text-4xl md:text-5xl font-serif font-bold text-amber-500">Global</div>
+        <div class="text-stone-400 text-sm tracking-widest uppercase mt-2">Presence</div>
+      </div>
+      <div class="anim-fade-up opacity-0" style="transition-delay: 300ms">
+        <div class="text-4xl md:text-5xl font-serif font-bold text-amber-500">24/7</div>
+        <div class="text-stone-400 text-sm tracking-widest uppercase mt-2">Concierge</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DYNAMIC SCROLL PROPERTIES SECTION -->
+<section id="properties" class="relative w-full">
+
+  <!-- The Sticky Background Container -->
+  <div class="sticky top-0 h-screen w-full overflow-hidden z-0">
+    <!-- Overlay for readability -->
+    <div class="absolute inset-0 bg-black/40 z-20"></div>
+
+    <!-- Dynamic Images Stack (Smooth Fade) -->
+    @for (prop of properties; track prop.id) {
+    <img [src]="prop.image" class="absolute inset-0 w-full h-full object-cover bg-layer"
+      [class.active]="activePropertyId() === prop.id" [class.inactive]="activePropertyId() !== prop.id"
+      alt="Property Background">
+    }
+
+    <!-- Decorative Gradient at bottom -->
+    <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-black/90 to-transparent z-30"></div>
+  </div>
+
+  <!-- The Scrolling Content Overlay -->
+  <div class="relative z-30 -mt-[100vh]">
+    <div class="container mx-auto px-6">
+
+      <!-- Section Header -->
+      <div class="min-h-[50vh] flex flex-col justify-center items-center text-center text-white mb-20 pt-32">
+        <span class="text-amber-400 tracking-widest uppercase font-bold text-sm mb-4">Our Masterpieces</span>
+        <h2 class="text-6xl md:text-7xl font-serif font-bold mb-6 drop-shadow-lg">The Collection</h2>
+        <p class="max-w-xl text-lg text-white/80 drop-shadow-md">Scroll to explore our hand-picked selection of the
+          world's most prestigious properties.</p>
+        <div class="mt-12 animate-bounce">
+          <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Property Items List -->
+      <div class="pb-32 space-y-32">
+        @for (prop of properties; track prop.id) {
+        <!-- Each property is a full screen section trigger -->
+        <div class="property-item-trigger min-h-screen flex items-center" [class.justify-end]="prop.id % 2 === 0"
+          [class.justify-start]="prop.id % 2 !== 0" [attr.data-id]="prop.id">
+
+          <!-- Glass Card -->
+          <div
+            class="w-full md:w-1/2 lg:w-5/12 glass-card-dark p-8 md:p-12 rounded-2xl shadow-2xl transition-all duration-500 transform hover:scale-[1.02] border border-white/10">
+            <div class="flex justify-between items-start mb-6">
+              <span
+                class="bg-amber-600 text-white text-xs font-bold px-3 py-1 rounded uppercase tracking-wider">Featured</span>
+              <span class="text-2xl font-serif text-white">{{ prop.price }}</span>
+            </div>
+
+            <h3 class="text-3xl md:text-4xl font-serif font-bold text-white mb-2">{{ prop.title }}</h3>
+            <p class="text-amber-400 font-medium mb-6 uppercase text-sm tracking-wide">{{ prop.location }}</p>
+
+            <p class="text-stone-300 leading-relaxed mb-8 border-l-2 border-amber-600 pl-4">
+              {{ prop.description }}
+            </p>
+
+            <!-- Specs Grid -->
+            <div class="grid grid-cols-3 gap-4 mb-8 text-stone-300 text-center border-t border-white/10 pt-6">
+              <div>
+                <div class="text-xl font-bold text-white">{{ prop.beds }}</div>
+                <div class="text-xs uppercase opacity-70">Beds</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold text-white">{{ prop.baths }}</div>
+                <div class="text-xs uppercase opacity-70">Baths</div>
+              </div>
+              <div>
+                <div class="text-xl font-bold text-white">{{ prop.sqft }}</div>
+                <div class="text-xs uppercase opacity-70">Sq. Ft.</div>
+              </div>
+            </div>
+
+            <div class="flex gap-4">
+              <button
+                class="flex-1 bg-white text-stone-900 hover:bg-amber-500 hover:text-white font-bold py-4 rounded transition-colors duration-300">
+                View Residence Details
+              </button>
+              <button (click)="openVideoModal(prop.video)"
+                class="px-6 border border-white/30 text-white hover:bg-white hover:text-stone-900 rounded transition-all duration-300 flex items-center justify-center group"
+                aria-label="Watch Video Tour">
+                <svg class="w-6 h-6 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+        }
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Features / Philosophy Section -->
+<section id="features" class="py-24 bg-stone-50 overflow-hidden relative z-20">
+  <div class="container mx-auto px-6">
+    <div class="flex flex-col md:flex-row gap-16 items-center">
+
+      <div class="w-full md:w-1/2 anim-fade-up opacity-0">
+        <div class="relative">
+          <div class="absolute inset-0 bg-amber-200 rounded-2xl transform rotate-3 translate-x-4 translate-y-4"></div>
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1600&auto=format&fit=crop"
+            alt="Architecture"
+            class="relative rounded-2xl shadow-xl w-full object-cover h-[600px] grayscale hover:grayscale-0 transition-all duration-700">
+
+          <div class="absolute bottom-8 -left-8 bg-white p-6 rounded shadow-xl max-w-xs hidden lg:block">
+            <p class="font-serif italic text-xl text-stone-800">"Architecture should speak of its time and place, but
+              yearn for timelessness."</p>
+            <p class="text-amber-600 font-bold mt-2 text-sm">- Frank Gehry</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full md:w-1/2 space-y-8 anim-fade-up opacity-0" style="transition-delay: 200ms">
+        <div>
+          <h2 class="text-amber-600 font-bold tracking-widest uppercase text-sm mb-2">Our Philosophy</h2>
+          <h3 class="text-4xl md:text-5xl font-serif font-bold text-stone-900 mb-6">Designing for the Extraordinary</h3>
+          <p class="text-stone-500 text-lg leading-relaxed">
+            We believe a home is more than just a structure; it is the backdrop of your life's most cherished moments.
+            Our approach combines rigorous architectural discipline with an artist's touch.
+          </p>
+        </div>
+
+        <div class="space-y-6">
+          <div class="flex gap-4">
+            <div
+              class="flex-shrink-0 w-12 h-12 rounded-full bg-stone-200 flex items-center justify-center text-stone-800">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-xl font-bold text-stone-900 mb-2">Timeless Design</h4>
+              <p class="text-stone-500">Materials that age gracefully and layouts that transcend trends.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div
+              class="flex-shrink-0 w-12 h-12 rounded-full bg-stone-200 flex items-center justify-center text-stone-800">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-xl font-bold text-stone-900 mb-2">Sustainable Luxury</h4>
+              <p class="text-stone-500">Eco-conscious engineering meets uncompromising comfort.</p>
+            </div>
+          </div>
+        </div>
+
+        <button
+          class="text-amber-600 font-bold border-b-2 border-amber-600 pb-1 hover:text-amber-800 transition-colors">Read
+          Our Story</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Artistic Map Placeholder -->
+<section class="py-24 bg-stone-900 text-white relative overflow-hidden z-20">
+  <div
+    class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1600&auto=format&fit=crop')] bg-cover bg-center grayscale mix-blend-overlay">
+  </div>
+  <div class="container mx-auto px-6 relative z-10 text-center">
+    <h2 class="text-amber-500 font-bold tracking-widest uppercase text-sm mb-4">Prime Locations</h2>
+    <h3 class="text-4xl md:text-5xl font-serif font-bold mb-12">Curated Neighborhoods</h3>
+
+    <div
+      class="relative w-full max-w-4xl mx-auto aspect-video bg-stone-800 rounded-xl overflow-hidden shadow-2xl border border-white/10 group cursor-pointer hover:border-amber-500/50 transition-colors">
+      <!-- Detailed Map Image Placeholder -->
+      <img src="https://images.unsplash.com/photo-1577086664693-894553052526?q=80&w=1600&auto=format&fit=crop"
+        class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
+        alt="Map Location">
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div
+          class="bg-black/60 backdrop-blur-sm px-8 py-4 rounded-full border border-white/20 text-white font-medium tracking-wide group-hover:bg-amber-600/90 group-hover:border-amber-500 transition-all">
+          Explore Interactive Map
+        </div>
+      </div>
+
+      <!-- Animated Dots -->
+      <div class="absolute top-1/4 left-1/3 w-3 h-3 bg-amber-500 rounded-full animate-ping"></div>
+      <div class="absolute top-1/4 left-1/3 w-3 h-3 bg-amber-500 rounded-full"></div>
+
+      <div class="absolute bottom-1/3 right-1/4 w-3 h-3 bg-amber-500 rounded-full animate-ping"
+        style="animation-delay: 0.5s"></div>
+      <div class="absolute bottom-1/3 right-1/4 w-3 h-3 bg-amber-500 rounded-full"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Meet the Founder / Agent Profile -->
+<section class="py-24 bg-white relative z-20">
+  <div class="container mx-auto px-6">
+    <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24">
+      <div class="w-full md:w-5/12 relative">
+        <div class="absolute -inset-4 border-2 border-stone-100 rounded-full transform -rotate-6"></div>
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop"
+          class="relative rounded-full aspect-square object-cover shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 w-full max-w-md mx-auto"
+          alt="Founder">
+      </div>
+      <div class="w-full md:w-7/12 text-center md:text-left">
+        <h2 class="text-amber-600 font-bold tracking-widest uppercase text-sm mb-2">Meet the Founder</h2>
+        <h3 class="text-5xl font-serif font-bold text-stone-900 mb-6">Eleanor Sterling</h3>
+        <p class="text-xl text-stone-500 italic font-serif leading-relaxed mb-8">
+          "Luxury is not just a price point; it's an experience, a thorough understanding of lifestyle, and an
+          unwavering commitment to excellence."
+        </p>
+        <p class="text-stone-600 leading-relaxed mb-8">
+          With over two decades of experience in the global ultra-high-net-worth market, Eleanor has curated a portfolio
+          of the world's most exclusive properties. Her discreet and personalized approach has made her the trusted
+          advisor for discerning clients worldwide.
+        </p>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Signature_sample.svg/1200px-Signature_sample.svg.png"
+          class="h-16 opacity-60 mx-auto md:mx-0 filter invert-[.3]" alt="Signature">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact/Footer Split -->
+<section id="contact" class="flex flex-col md:flex-row h-auto min-h-screen relative z-20">
+  <!-- Left: Image -->
+  <div class="w-full md:w-1/2 h-64 md:h-auto relative overflow-hidden group">
+    <img src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?q=80&w=1600&auto=format&fit=crop"
+      class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+      alt="Contact">
+    <div class="absolute inset-0 bg-stone-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
+  </div>
+
+  <!-- Right: Form -->
+  <div class="w-full md:w-1/2 bg-white flex flex-col justify-center p-8 md:p-20">
+    <div class="max-w-md mx-auto w-full anim-fade-up opacity-0">
+      <h2 class="text-4xl font-serif font-bold text-stone-900 mb-4">Begin the Conversation</h2>
+      <p class="text-stone-500 mb-8">Schedule a private viewing or request our exclusive catalog.</p>
+
+      <form class="space-y-6">
+        <div class="space-y-1">
+          <label class="text-xs font-bold uppercase text-stone-400 tracking-wider">Full Name</label>
+          <input type="text"
+            class="w-full border-b border-stone-300 py-3 text-stone-900 focus:outline-none focus:border-amber-600 transition-colors bg-transparent text-lg"
+            placeholder="Jane Doe">
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-xs font-bold uppercase text-stone-400 tracking-wider">Email Address</label>
+          <input type="email"
+            class="w-full border-b border-stone-300 py-3 text-stone-900 focus:outline-none focus:border-amber-600 transition-colors bg-transparent text-lg"
+            placeholder="jane@luxestate.com">
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-xs font-bold uppercase text-stone-400 tracking-wider">Interest</label>
+          <select
+            class="w-full border-b border-stone-300 py-3 text-stone-900 focus:outline-none focus:border-amber-600 transition-colors bg-transparent text-lg">
+            <option>Buying a Residence</option>
+            <option>Selling a Property</option>
+            <option>Architectural Consultation</option>
+          </select>
+        </div>
+
+        <button type="button"
+          class="mt-8 bg-stone-900 text-white w-full py-4 rounded font-bold hover:bg-amber-600 transition-colors shadow-lg">Submit
+          Inquiry</button>
+      </form>
+
+      <div class="mt-12 pt-12 border-t border-stone-100 flex flex-wrap gap-8 text-stone-400 text-sm">
+        <a href="#" class="hover:text-stone-900">Instagram</a>
+        <a href="#" class="hover:text-stone-900">LinkedIn</a>
+        <a href="#" class="hover:text-stone-900">+1 (555) 000-0000</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Minimal Footer -->
+<footer class="bg-white border-t border-stone-100 py-8 text-center relative z-20">
+  <p class="text-stone-400 text-sm font-medium">© 2024 LuxeEstate. Crafted with precision.</p>
+</footer>
+
+<!-- Video Modal Overlay -->
+@if (videoModalOpen()) {
+<div class="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 animate-fade-in backdrop-blur-sm"
+  (click)="closeVideoModal()">
+  <button class="absolute top-8 right-8 text-white/50 hover:text-white transition-colors" (click)="closeVideoModal()">
+    <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+  <div
+    class="w-full max-w-7xl aspect-video bg-black rounded-lg overflow-hidden shadow-2xl relative border border-white/10"
+    (click)="$event.stopPropagation()">
+    <video [src]="activeVideoUrl()" class="w-full h-full object-cover" autoplay controls playsinline></video>
+  </div>
+</div>
+}

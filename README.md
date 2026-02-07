@@ -1,20 +1,46 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# LuxeEstate Properties - Luxury Real Estate Landing Page
 
-# Run and deploy your AI Studio app
+![Project Banner](https://images.unsplash.com/photo-1600596542815-2788866afe90?q=80&w=1920&auto=format&fit=crop)
 
-This contains everything you need to run your app locally.
+A premium, high-end real estate landing page built with **Angular (Standalone)**, featuring smooth animations with **Anime.js**, **Lenis Scroll**, and a modern glassmorphism UI.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1gOOr1ivZyn-aLTlANC5R0sJO_uRkaLch
+## Features
+- **Cinematic Animations**: Custom GSAP-like animations using Anime.js.
+- **Smooth Scrolling**: Implemented with Lenis for a buttery smooth experience.
+- **Interactive UI**: 
+  - Dynamic Sticky Backgrounds on scroll.
+  - Video Tour Modals.
+  - Premium Property Cards.
+- **Responsive Design**: Fully optimized for Desktop, Tablet, and Mobile.
+- **Modern Stack**: Angular 18+, Vite, TailwindCSS.
+
+## Tech Stack
+- **Framework**: Angular (Standalone Components)
+- **Styling**: TailwindCSS
+- **Animations**: Anime.js
+- **Scrolling**: Lenis
+- **Build Tool**: Vite
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/DFRICK05/angular-luxury-landing.git
+    cd angular-luxury-landing
+    ```
 
+2.  **Install dependencies**
+    ```bash
+    npm install --legacy-peer-deps
+    ```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+3.  **Run the development server**
+    ```bash
+    npm run dev
+    ```
+
+4.  **Open in Browser**
+    Navigate to `http://localhost:3000`
+
+---
+*Created as a Daily Coding Challenge.*
